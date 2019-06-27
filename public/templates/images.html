@@ -1,0 +1,108 @@
+{% extends "base" %}
+
+{% block title %}Images{% endblock %}
+
+{% block content %}
+
+<!-- padding -->
+<br><br>
+
+<!-- upload banner -->
+<div class="ui grid">
+    <div class="one wide column"></div>
+    <div class="fourteen wide column">
+        <div id="banner" class="ui inverted segment">
+            <div class="ui grey ribbon label">
+                <i class="upload icon"></i> Upload Image
+            </div>
+            <div class="ui center aligned grid">
+                <div class="two wide column">
+                    <img id="status" class="ui tiny rounded image">
+                </div>
+                <div class="four wide column">
+                    <form enctype="multipart/form-data" action="/upload" accept-charset="UTF-8"
+                          method="post">
+                        <input name="utf8" type="hidden" value="✓">
+                        <input type="hidden" name="authenticity_token"
+                               value="cXds8wbgjzhIaGiH7tGXkyqaaVKnuZlR7j66cpiICefSxbwWJeTNnHwWF4a00jUwEo9gJV61y+r3TsUluEuTiA==">
+                        <input type="file" name="file" id="file">
+                        <br><br>
+                        <button id="submit" type="submit" class="ui inverted circular icon button">
+                            <i class="cloud upload icon"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- page contents -->
+<div class="ui center aligned grid">
+    <div class="fourteen wide column">
+        <div id="board" class="ui segment">
+            <div class="ui black top attached label">
+                <h5>
+                    <i class="file image icon"></i>
+                </h5>
+            </div>
+            <div class="ui center aligned grid">
+                {% for fileInfo in fileInfoList %}
+                <div class="four wide column">
+                    <div class="ui rounded image">
+                        <a id="{{ fileInfo.url }}" class="ui red right corner label"
+                           href="javascript: void(0)" onclick="popConfirmation(this.id)">
+                            <i class="trash icon"></i>
+                        </a>
+                        <a id="{{ fileInfo.url }}"
+                           href="javascript: void(0)" onclick="popFullscreen(this.id)">
+                            <img class="square"
+                                 src="{{ fileInfo.url }}">
+                            <div class="ui bottom attached label">{{ fileInfo.name | abbreviate(18) }}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for fullscreen -->
+<div class="ui small basic modal fullscreen">
+    <div class="ui center aligned grid">
+        <div class="twelve wide column">
+            <img id="modalImage" class="ui rounded centered massive image">
+        </div>
+    </div>
+</div>
+
+<!-- modal for confirmation -->
+<div class="ui small basic modal confirmation">
+    <div class="ui icon header">
+        <i class="archive icon"></i>
+        <p id="modalFileURL"></p>
+    </div>
+    <div class="content">
+        <p>
+            Noticed that you will not be able to recover this imaginary file.
+            &nbsp;Please confirm deletion.
+        </p>
+    </div>
+    <div class="actions">
+        <div class="ui red basic cancel inverted button">
+            <i class="remove icon"></i>
+            No
+        </div>
+        <div class="ui green ok inverted button">
+            <i class="checkmark icon"></i>
+            Yes
+        </div>
+    </div>
+</div>
+
+<!-- page scripts -->
+<script type="text/javascript" src="/javascripts/images.js"></script>
+
+{% endblock %}
