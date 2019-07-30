@@ -42,7 +42,7 @@ The project contains a simple web application which supports image uploading and
 ### Setup and Run Server
 #### IP and Port
 * Modify `host` and `port` in `conf/application.conf`
-* Defaul Host `0.0.0.0` and Port `3318`
+* Default Host `0.0.0.0` and Port `3318`
 
 
 #### Database
